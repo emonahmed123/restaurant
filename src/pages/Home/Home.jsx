@@ -1,8 +1,15 @@
+import Banner from "./Banner/Banner"
+import Catagory from "./Catagory/Catagory"
+import PopularMenu from "./PopolarMenu/PopularMenu"
 
 
 const Home = () => {
   return (
-    <div><h1>this is home</h1></div>
+ <div>
+       <Banner/>
+    <Catagory/>
+    <PopularMenu/>
+ </div>
   )
 }
 
