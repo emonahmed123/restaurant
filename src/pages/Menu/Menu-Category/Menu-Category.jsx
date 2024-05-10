@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import MenuItem from "../../sharit/Menuitem/MenuItem"
 import Cover from "../../sharit/cover/Cover"
 
@@ -14,6 +15,12 @@ const MenuCategory = ({item,title,Img ,bal}) => {
                 item={item}
             ></MenuItem>)
         }
+
+        <Link to={`/ourShop/${title}`} >
+
+           <button className="btn btn-secondary">Order</button>
+        </Link>
+
     </div>
     </div>
   )

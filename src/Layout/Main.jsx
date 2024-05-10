@@ -5,11 +5,15 @@ import Navbar from "../pages/sharit/Navar/Navbar"
 
 
 const Main = () => {
+  
+  const noHeaderFooter=location.pathname.includes("login")
   return (
+    
+    
     <div> 
-        <Navbar/>
+       { noHeaderFooter|| <Navbar/>}
         <Outlet/>
-    <Footer/>
+   {  noHeaderFooter||   <Footer/>}
      </div>
   )
 }
