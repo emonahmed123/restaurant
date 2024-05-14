@@ -1,10 +1,53 @@
+import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 
 const Login = () => {
-  return (
+    const [disabled, setDisabled] = useState(true);
+  
+    const {signIn}=useContext(AuthContext)
+        console.log(signIn)
+    useEffect(() => {
+        loadCaptchaEnginge(6);
+    }, [])
+    const handleLogin = event => {
+        event.preventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log(email, password);
+        signIn(email,password)
+        .then(result=>{
+            const user=result.user;
+            console.log(user)
+            Swal.fire({
+                title: 'User Login Successful.',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            });
+        })
+    }
+  
+    const handleValidateCaptcha = (e) => {
+        const user_captcha_value = e.target.value;
+        if (validateCaptcha(user_captcha_value)) {
+            setDisabled(false);
+        }
+        else {
+            setDisabled(true)
+        }
+    }
+  
+  
+    return (
     <>
     <Helmet>
         <title>Bistro Boss | Login</title>
@@ -43,7 +86,7 @@ const Login = () => {
                         <input disabled={disabled } className="btn btn-primary" type="submit" value="Login" />
                     </div>
                 </form>
-                <p><small>New Here? <Link to="/signup">Create an account</Link> </small></p>
+                <p className="pl-5 pb-2"><small>New Here? <Link to="/singup">Create an account</Link> </small></p>
             </div>
         </div>
     </div>
