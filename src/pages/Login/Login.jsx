@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async"
-import { Link, json, useLocation, useNavigate } from "react-router-dom"
+import { Link,  useLocation, useNavigate } from "react-router-dom"
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import { getErrorMessage } from "../../hooks/useCustomError";
 
 
 const Login = () => {
@@ -42,23 +43,21 @@ const Login = () => {
             navigate(from,{replace:true})
         })
         .catch((err)=>{
-                 const edatE= JSON.parse(err) 
-                 console.log(edatE)
-               if(edatE.includes("irebaseError: Firebase: Error (auth/network-request-failed).")){
-                console.log('well')
-               }
+           console.log(err)
+            const errorMessage = getErrorMessage(err.code);
             
           
-            // Swal.fire({
-            //     title: `something wron ${err}`,
-            //     showClass: {
-            //         popup: 'animate__animated animate__fadeInDown'
-            //     },
-            //     hideClass: {
-            //         popup: 'animate__animated animate__fadeOutUp'
-            //     }
+            Swal.fire({
+                title: `${errorMessage}`,
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                icon: 'error',
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
                
-            // });
+            });
         })
     }
   

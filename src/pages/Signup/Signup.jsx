@@ -1,20 +1,23 @@
 
 import { Helmet } from 'react-helmet-async'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm} from "react-hook-form";
 
 import { useContext } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
+import Swal from 'sweetalert2';
+import { getErrorMessage } from '../../hooks/useCustomError';
 
 const Signup = () => {
+    const navigate = useNavigate();
     const {
         register,
-        handleSubmit,
+        handleSubmit, reset,
 
         formState: { errors },
       } = useForm()
     
-      const {createUser}= useContext(AuthContext)
+      const {createUser,  updateUserProfile}= useContext(AuthContext)
       
     const onSubmit = (data) =>{ 
         
@@ -22,8 +25,40 @@ const Signup = () => {
       .then(result=>{
         const loggedUser=result.user;
         console.log(loggedUser)
+
+        updateUserProfile(data.name, data.photoURL)
+        .then(() => {
+            console.log('user profile info updated')
+            reset();
+            Swal.fire({
+                position: 'top-center',
+                icon: 'success',
+                title: 'User created successfully.',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            navigate('/');
+
+        })
+        .catch(error => console.log(error))
       })
-    
+      .catch((err)=>{
+        console.log(err)
+         const errorMessage = getErrorMessage(err.code);
+         
+       
+         Swal.fire({
+             title: `${errorMessage}`,
+             showClass: {
+                 popup: 'animate__animated animate__fadeInDown'
+             },
+             icon: 'error',
+             hideClass: {
+                 popup: 'animate__animated animate__fadeOutUp'
+             }
+            
+         });
+     })
 
     }
   
@@ -86,7 +121,7 @@ const Signup = () => {
                         <input className="btn btn-primary" type="submit" value="Sign Up" />
                     </div>
                 </form>
-                <p><small>Already have an account <Link to="/login">Login</Link></small></p>
+                <p className='p-5'><small>Already have an account <Link to="/login">Login</Link></small></p>
             </div>
         </div>
     </div>

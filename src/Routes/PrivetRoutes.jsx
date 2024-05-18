@@ -15,10 +15,10 @@ if(user){
     return chlidren
 
 }
-else
+
   return <Navigate to="/login" state={{from:location}} ></Navigate>
   
-}
 
+}
 
 export default PrivetRoutes
