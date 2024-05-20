@@ -5,6 +5,7 @@ import Cover from "../../sharit/cover/Cover"
 
 const MenuCategory = ({item,title,Img ,bal}) => {
   console.log(bal)
+  console.log(title)
     return (
     <div className="pt-10">
    { title &&   <Cover bal={bal} img={Img}  title={title}></Cover>} 

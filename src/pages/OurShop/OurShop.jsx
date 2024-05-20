@@ -9,9 +9,9 @@ import 'react-tabs/style/react-tabs.css';
 const OurShop = () => {
     const categories = ['salad', 'pizza', 'soup', 'dessert', 'drinks'];
     const { category } = useParams();
-    console.log(category)
+
     const initialIndex = categories.indexOf(category);
-    console.log(initialIndex)
+   
     const [tabIndex, setTabIndex] = useState(initialIndex);
     const [menu] = useMenu();
     

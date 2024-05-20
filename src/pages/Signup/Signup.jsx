@@ -7,9 +7,13 @@ import { useContext } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
 import { getErrorMessage } from '../../hooks/useCustomError';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+import SocialLogin from '../../Component/socialLogin/SocialLogin';
 
 const Signup = () => {
     const navigate = useNavigate();
+    const axiosPublic=useAxiosPublic()
+    
     const {
         register,
         handleSubmit, reset,
@@ -29,15 +33,28 @@ const Signup = () => {
         updateUserProfile(data.name, data.photoURL)
         .then(() => {
             console.log('user profile info updated')
-            reset();
-            Swal.fire({
-                position: 'top-center',
-                icon: 'success',
-                title: 'User created successfully.',
-                showConfirmButton: false,
-                timer: 1500
-            });
-            navigate('/');
+          const userInfo={
+            name:data.name,
+            email:data.email
+          }
+         
+            axiosPublic.post('/users',userInfo)
+           .then(res=>{
+              if(res.data.insertedId){
+               console.log('user add database')
+                reset();
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'User created successfully.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                navigate('/');
+              }
+           })
+         
+           
 
         })
         .catch(error => console.log(error))
@@ -122,6 +139,8 @@ const Signup = () => {
                     </div>
                 </form>
                 <p className='p-5'><small>Already have an account <Link to="/login">Login</Link></small></p>
+
+               <SocialLogin></SocialLogin>
             </div>
         </div>
     </div>

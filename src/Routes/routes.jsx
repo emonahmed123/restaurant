@@ -6,6 +6,10 @@ import Menu from "../pages/Menu/Menu/Menu";
 import OurShop from "../pages/OurShop/OurShop";
 import Login from "../pages/Login/Login";
 import Signup from "../pages/Signup/Signup";
+import Dashboard from "../Layout/Dashboard";
+import Cart from "../pages/Dashboard/Cart/Cart";
+import PrivetRoute from "./PrivateRoute";
+
 
 
 export  const router = createBrowserRouter([
@@ -41,6 +45,18 @@ export  const router = createBrowserRouter([
 
       
     },
+    {
+      path:'dashboard',
+      element:<PrivetRoute><Dashboard></Dashboard></PrivetRoute>,
+      children:[
+        {
+          path:'cart',
+          element:<Cart></Cart>
+        }
+
+      ]
+
+    }
     
   ]);
 

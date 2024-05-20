@@ -14,9 +14,9 @@ const Login = () => {
 
     const navigate=useNavigate()
   const location=useLocation()
-     const from=location.state?.from?.pathname ||"/"
-     
-     console.log('state in the location login page', location.state)
+  const from = location.state?.from?.pathname || "/";
+  console.log('state in the location login page', location.state)
+    
         useEffect(() => {
         loadCaptchaEnginge(6);
     }, [])
@@ -65,10 +65,10 @@ const Login = () => {
     const handleValidateCaptcha = (e) => {
         const user_captcha_value = e.target.value;
         if (validateCaptcha(user_captcha_value)) {
-            setDisabled(false);
+            setDisabled(true);
         }
         else {
-            setDisabled(true)
+            setDisabled(false)
         }
     }
   
