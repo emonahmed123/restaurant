@@ -10,7 +10,7 @@ import { getErrorMessage } from "../../hooks/useCustomError";
 const Login = () => {
     const [disabled, setDisabled] = useState(true);
     const {signIn}=useContext(AuthContext)
-    console.log(signIn)
+
 
     const navigate=useNavigate()
   const location=useLocation()
@@ -25,13 +25,13 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
+       
         signIn(email,password)
         .then(result=>{
             const user=result.user;
-            console.log(user)
+           
             Swal.fire({
-                title: 'User Login Successful.',
+                title: `${user} User Login Successful.`,
                 showClass: {
                     popup: 'animate__animated animate__fadeInDown'
                 },
