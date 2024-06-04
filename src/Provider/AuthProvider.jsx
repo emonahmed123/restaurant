@@ -41,7 +41,8 @@ const axiosPublic=useAxiosPublic()
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
             if(currentUser){
-                const UserInfo = {email:createUser.email}
+                const UserInfo = {email:currentUser.email}
+
  axiosPublic.post('/jwt',UserInfo).then(res=>{
     if(res.data.token){
         localStorage.setItem('access-token', res.data.token)
