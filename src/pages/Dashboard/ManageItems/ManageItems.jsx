@@ -1,14 +1,17 @@
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import SectionTitle from "../../../components/SectionTitle/SectionTitle";
+
 import useMenu from "../../../hooks/useMenu";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+
 import { Link } from "react-router-dom";
+import SectionTitle from "../../../Component/Section-title/SectionTitle";
+import useAxiosecure from "../../../hooks/useAxiosecure";
 
 
 const ManageItems = () => {
-    const [menu, , refetch] = useMenu();
-    const axiosSecure = useAxiosSecure();
+    const [menu, refetch] = useMenu();
+ 
+    const axiosSecure = useAxiosecure();
 
     const handleDeleteItem = (item) => {
         Swal.fire({
@@ -24,8 +27,8 @@ const ManageItems = () => {
                 const res = await axiosSecure.delete(`/menu/${item._id}`);
                 // console.log(res.data);
                 if (res.data.deletedCount > 0) {
-                    // refetch to update the ui
                     refetch();
+
                     Swal.fire({
                         position: "top-end",
                         icon: "success",

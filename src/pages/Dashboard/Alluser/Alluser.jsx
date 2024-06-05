@@ -20,9 +20,9 @@ const Alluser = () => {
     );
         return res.data}
       })
-        if(isPending){
-            return  
-        }
+        // if(isPending){
+        //     return  
+        // }
 
         const handleMakeAdmin = user =>{
             axiosSecure.patch(`/users/admin/${user._id}`)
