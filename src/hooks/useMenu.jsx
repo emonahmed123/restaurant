@@ -16,7 +16,7 @@ const useMenu = () => {
     // return [menu,isLoing]
     const axiosPublic=useAxiosPublic()
 
-    const {data: menu = [],isPending:loading ,refetch} = useQuery({
+    const {data: menu = [],isPending:loading,refetch} = useQuery({
        
         queryKey: ['menu'], 
         queryFn: async() =>{
@@ -26,7 +26,7 @@ const useMenu = () => {
     })
 
 
-    return [menu, loading, refetch()]
+    return [menu, loading, refetch]
 
 }
 

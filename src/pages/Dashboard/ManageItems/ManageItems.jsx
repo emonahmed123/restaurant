@@ -9,7 +9,7 @@ import useAxiosecure from "../../../hooks/useAxiosecure";
 
 
 const ManageItems = () => {
-    const [menu, refetch] = useMenu();
+    const [menu, , refetch] = useMenu();
  
     const axiosSecure = useAxiosecure();
 

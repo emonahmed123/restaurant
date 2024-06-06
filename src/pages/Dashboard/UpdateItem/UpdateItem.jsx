@@ -13,7 +13,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 const UpdateItem = () => {
     const {name, category, recipe, price, _id} = useLoaderData();
   console.log(_id)
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit,reset } = useForm();
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosecure()
     const onSubmit = async (data) => {
@@ -39,7 +39,8 @@ const UpdateItem = () => {
             console.log(menuRes.data)
             if(menuRes.data.modifiedCount > 0){
                 // show success popup
-                // reset();
+                
+                reset();
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
